@@ -10,9 +10,9 @@ namespace GymManagement.Controllers
     {
         //public readonly GymDbcontext _context = new GymDbcontext();
         private readonly IPlanRepository _planRepository; //null
-        public PlansController()
+        public PlansController(IPlanRepository planRepository)
         {
-            _planRepository = new PlanRepository();
+            _planRepository = planRepository;
         }
         public async Task<IActionResult> Index(CancellationToken ct = default)
         {

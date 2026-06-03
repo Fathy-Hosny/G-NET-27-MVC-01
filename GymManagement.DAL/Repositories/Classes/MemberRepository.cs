@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using GymManagement.DAL.Models;
 using GymManagement.DAL.Repositories.Interfaces;
 using GymManagement.DbContexts;
-using GymManagement.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace GymManagement.DAL.Repositories.Classes
 {
-    public class PlanRepository : GenericRepository<Plan>, IPlanRepository
+    internal class MemberRepository : GenericRepository<Member>, IMemberRepository
     {
-        public PlanRepository(GymDbcontext context) : base(context)
+        public MemberRepository(GymDbcontext context) : base(context)
         {
         }
     }

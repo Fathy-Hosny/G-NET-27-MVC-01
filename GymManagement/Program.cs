@@ -2,6 +2,7 @@ using GymManagement.BLL;
 using GymManagement.BLL.Services.Classes;
 using GymManagement.BLL.Services.Interfaces;
 using GymManagement.DAL;
+using GymManagement.DAL.DateSeeding;
 using GymManagement.DAL.Repositories.Classes;
 using GymManagement.DAL.Repositories.Interfaces;
 using GymManagement.DbContexts;
@@ -11,7 +12,7 @@ namespace GymManagement
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -29,9 +30,21 @@ namespace GymManagement
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             builder.Services.AddDbContext<GymDbcontext>(options => {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+
                 });
 
             var app = builder.Build();
+
+            using var scope = app.Services.CreateScope();
+            var _context = scope.ServiceProvider.GetRequiredService<GymDbcontext>();
+            var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
+            var folderPath = Path.Combine(app.Environment.ContentRootPath, "wwwroot", "Files");
+          var pendingMigrations = await  _context.Database.GetPendingMigrationsAsync();
+            if(pendingMigrations.Any())
+            {
+                await _context.Database.MigrateAsync(); // Update-Database
+            }
+           await GymDataSeeding.SeedAsync(_context , folderPath , logger);
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())

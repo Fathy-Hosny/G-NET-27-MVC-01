@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 using GymManagement.DAL.Models;
 using GymManagement.DAL.Repositories.Interfaces;
@@ -9,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GymManagement.DAL.Repositories.Classes
 {
-    public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : BaseEntity, new()
+    public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : BaseEntity
     {
         private readonly GymDbcontext _context;
 
@@ -31,28 +32,33 @@ namespace GymManagement.DAL.Repositories.Classes
         public async Task<TEntity?> GetByIdAsync(int id, CancellationToken ct = default)
         => await _dbSet.FirstOrDefaultAsync(e => e.Id == id, ct);
 
-        public async Task<int> AddAsync(TEntity entity, CancellationToken ct = default)
+        public void Add(TEntity entity)
         {
-            await _dbSet.AddAsync(entity, ct);
-            return await _context.SaveChangesAsync(ct);
+            _dbSet.Add(entity);
         }
-        public async Task<int> UpdateAsync(TEntity entity, CancellationToken ct = default)
+        public void Update(TEntity entity)
         {
             _dbSet.Update(entity);
 
-            return await _context.SaveChangesAsync(ct);
+
+           
         }
 
-        public async Task<int> DeleteAsync(TEntity entity, CancellationToken ct = default)
+        public void Delete(TEntity entity)
         {
             _dbSet.Remove(entity);
 
-            return await _context.SaveChangesAsync(ct);
         }
 
+        public async Task<bool> AnyAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken ct = default)
+        {
+            return await _context.Set<TEntity>().AnyAsync(predicate, ct);
+        }
 
-
-
-
+        public async Task<TEntity?> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken ct = default)
+        {
+            return await _context.Set<TEntity>().FirstOrDefaultAsync(predicate, ct);      
+            
+        }
     }
 }

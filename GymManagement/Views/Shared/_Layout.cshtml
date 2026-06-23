@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <!-- ^ Our main css file -->
     <link rel="stylesheet" href="~/css/Style.css" />
-    <title>Power fitness | Home</title>
+    <title>@ViewData["Title"]</title>
 </head>
 
 <body>
@@ -31,38 +31,44 @@
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav m-auto mb-2 mb-lg-0 mt-3 mt-lg-0">
-                        <li class="nav-item">
-                            <li class="nav-item">
-                                <a class="nav-link active px-3 py-2 mx-2 fw-bolder fs-5" aria-current="page" href="#">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link  px-3 py-2 mx-2 fw-bolder fs-5" aria-current="page" href="#">Members</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link  px-3 py-2 mx-2 fw-bolder fs-5" aria-current="page" href="#">Trainers</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link  px-3 py-2 mx-2 fw-bolder fs-5" aria-current="page" href="#">Sessions</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link  px-3 py-2 mx-2 fw-bolder fs-5" aria-current="page" href="#">Plans</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link  px-3 py-2 mx-2 fw-bolder fs-5" aria-current="page" href="#">Memberships</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link  px-3 py-2 mx-2 fw-bolder fs-5" aria-current="page" href="#">Sessions Schedule</a>
-                            </li>
-                            <li class="nav-item">
-                                <form asp-action="Logout" asp-controller="Account" method="post" class="d-inline">
-                                    <button type="submit"
-                                            class="btn btn-link nav-link px-3 py-2 mx-2 fw-bolder fs-5 text-black-alternative">
-                                        Logout
-                                    </button>
-                                </form>
-                            </li>
-                        </ul>
+                  <ul class="navbar-nav m-auto mb-2 mb-lg-0 mt-3 mt-lg-0">
+    <li class="nav-item">
+        <a class="nav-link active px-3 py-2 mx-2 fw-bolder fs-5"
+           asp-controller="Home" asp-action="Index">Home</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link px-3 py-2 mx-2 fw-bolder fs-5"
+           asp-controller="Members" asp-action="Index">Members</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link px-3 py-2 mx-2 fw-bolder fs-5"
+           asp-controller="Trainers" asp-action="Index">Trainers</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link px-3 py-2 mx-2 fw-bolder fs-5"
+           asp-controller="Sessions" asp-action="Index">Sessions</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link px-3 py-2 mx-2 fw-bolder fs-5"
+           asp-controller="Plans" asp-action="Index">Plans</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link px-3 py-2 mx-2 fw-bolder fs-5"
+           asp-controller="Memberships" asp-action="Index">Memberships</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link px-3 py-2 mx-2 fw-bolder fs-5"
+           asp-controller="SessionsSchedule" asp-action="Index">Sessions Schedule</a>
+    </li>
+    <li class="nav-item">
+        <form asp-action="Logout" asp-controller="Account" method="post" class="d-inline">
+            <button type="submit"
+                    class="btn btn-link nav-link px-3 py-2 mx-2 fw-bolder fs-5 text-black-alternative">
+                Logout
+            </button>
+        </form>
+    </li>
+</ul>
                     </div>
                 </div>
             </nav>
@@ -75,25 +81,29 @@
     </div>
 
         <footer class="mt-5">
-            <div class="bar bg-primary-color d-flex py-4 text-white fw-bolder align-items-center">
-                <p class="py-0 my-0 overflow-hidden text-nowrap">
-                    outdoor & online trainers
-                    <img src="~/images/star.svg" alt="star icon" /> personal training
-                    <img src="~/images/star.svg" alt="star icon" /> live classes
-                    <img src="~/images/star.svg" alt="star icon" /> personal trainers
-                    <img src="~/images/star.svg" alt="star icon" /> personal training
-                </p>
-            </div>
+         
+           
+                <div class="bar bg-primary-color d-flex py-3 px-3 text-white fw-bolder align-items-center  shadow-sm">
+                    <p class="py-0 my-0 overflow-hidden text-nowrap w-100 text-center fs-4">
+                        outdoor & online trainers
+                        <img src="~/images/star.svg" alt="star icon" class="mx-2" /> personal training
+                        <img src="~/images/star.svg" alt="star icon" class="mx-2" /> live classes
+                        <img src="~/images/star.svg" alt="star icon" class="mx-2" /> personal trainers
+                        <img src="~/images/star.svg" alt="star icon" class="mx-2" /> personal training
+                    </p>
+                </div>
+          
 
             <div class="footer-content my-5">
                 <div class="container">
-                    <div class="row row-cols-2 row-cols-md-4 g-5">
+                    <div class="row row-cols-2 row-cols-md-4 g-4">
                         <div class="logo">
                             <div class="inner">
                                 <div class="image">
-                                    <img src="~/images/logo.jpg" alt="our logo" />
+                                    <!-- تكبير اللوجو قليلاً ليكون متناسق -->
+                                    <img src="~/images/logo.jpg" alt="our logo" style="max-width: 140px;" />
                                 </div>
-                                <p class="fs-18 mt-2">
+                                <p class="mt-3 text-secondary" style="font-size: 16px;">
                                     Push harder, go further. Your <br />
                                     fitness journey starts today!
                                 </p>
@@ -101,38 +111,34 @@
                         </div>
 
                         <div class="contact">
-                            <h4 class="fw-bolder text-uppercase mb-4">contact us</h4>
-
-                            <ul>
-                                <li class="d-flex align-items-center gap-2">
+                            <h4 class="fw-bolder text-uppercase mb-3 fs-5">contact us</h4>
+                            <ul class="list-unstyled">
+                                <li class="d-flex align-items-center gap-2 mb-2">
                                     <div class="icon">
-                                        <img src="~/images/phone icon.jpg" alt="phone icon" />
+                                        <img src="~/images/phone icon.jpg" alt="phone icon" width="22" />
                                     </div>
-                                    <p>+91 123 456 789</p>
+                                    <p class="mb-0 text-secondary" style="font-size: 16px;">+91 123 456 789</p>
                                 </li>
-
                                 <li class="d-flex align-items-center gap-2">
                                     <div class="icon">
-                                        <img src="~/images/message icon.jpg" alt="message icon" />
+                                        <img src="~/images/message icon.jpg" alt="message icon" width="22" />
                                     </div>
-                                    <p>info@gmail.com</p>
+                                    <p class="mb-0 text-secondary" style="font-size: 16px;">info@gmail.com</p>
                                 </li>
                             </ul>
                         </div>
 
                         <div class="time">
-                            <h4 class="fw-bolder text-uppercase mb-4">our gym timing</h4>
-
-                            <p>
-                                Mon - Fri : 08:00 AM - 10:00 PM <br />Sat - Sun : 08:00 AM -
-                                09:00 PM
+                            <h4 class="fw-bolder text-uppercase mb-3 fs-5">our gym timing</h4>
+                            <p class="text-secondary" style="font-size: 16px;">
+                                Mon - Fri : 08:00 AM - 10:00 PM <br />
+                                Sat - Sun : 08:00 AM - 09:00 PM
                             </p>
                         </div>
 
                         <div class="location">
-                            <h4 class="fw-bolder text-uppercase mb-4">our location</h4>
-
-                            <p>
+                            <h4 class="fw-bolder text-uppercase mb-3 fs-5">our location</h4>
+                            <p class="text-secondary" style="font-size: 16px;">
                                 2715 Ash Dr. San Jose, South <br />
                                 Dakota 83475
                             </p>
@@ -144,6 +150,6 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+        @await RenderSectionAsync("scriptsMember", required: false)
 </body>
 </html>

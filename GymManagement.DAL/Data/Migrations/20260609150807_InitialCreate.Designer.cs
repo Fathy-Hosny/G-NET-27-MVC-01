@@ -9,11 +9,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace GymManagement.DAL.Data.Migration
+namespace GymManagement.DAL.Data.Migrations
 {
     [DbContext(typeof(GymDbcontext))]
-    [Migration("20260603181001_InitialCreat")]
-    partial class InitialCreat
+    [Migration("20260609150807_InitialCreate")]
+    public partial class InitialCreat : Microsoft.EntityFrameworkCore.Migrations.Migration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -130,7 +130,6 @@ namespace GymManagement.DAL.Data.Migration
                         .HasColumnType("int");
 
                     b.Property<string>("Note")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("UpdatedAt")

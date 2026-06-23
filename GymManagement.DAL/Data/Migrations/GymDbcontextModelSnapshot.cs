@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace GymManagement.DAL.Data.Migration
+namespace GymManagement.DAL.Data.Migrations
 {
     [DbContext(typeof(GymDbcontext))]
     partial class GymDbcontextModelSnapshot : ModelSnapshot
@@ -127,7 +127,6 @@ namespace GymManagement.DAL.Data.Migration
                         .HasColumnType("int");
 
                     b.Property<string>("Note")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("UpdatedAt")

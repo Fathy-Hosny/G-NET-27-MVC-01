@@ -7,7 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\GymManagement.DAL\GymManagement.DAL.csproj" />
+    <PackageReference Include="AutoMapper" Version="16.1.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\GymManagement.DAL\GymManagement.DAL.csproj" />
+  </ItemGroup>
+	<ItemGroup>
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+	</ItemGroup>
 </Project>

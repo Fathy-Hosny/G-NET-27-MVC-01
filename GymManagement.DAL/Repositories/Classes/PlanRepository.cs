@@ -8,44 +8,19 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GymManagement.DAL.Repositories.Classes
 {
-    public class PlanRepository : IPlanRepository
+    public class PlanRepository : GenericRepository<Plan>, IPlanRepository
     {
         private readonly GymDbcontext _context;
-        public PlanRepository(GymDbcontext context)
+
+        public PlanRepository(GymDbcontext context) : base(context)
         {
             _context = context;
         }
 
-        
-
-        public async Task<IEnumerable<Plan>> GetAllPlanAsync(bool Tracking = false, CancellationToken ct = default)
-       => Tracking ? await _context.Plans.ToListAsync(ct) : await _context.Plans.AsNoTracking().ToListAsync(ct);
-         
-
-        public async Task<Plan?> GetByIdAsync(int id, CancellationToken ct = default)
-        => await _context.Plans.FirstOrDefaultAsync(p => p.Id == id, ct);
-
-        public async Task<int> AddAsync(Plan plan, CancellationToken ct = default)
+        public async Task<Plan?> GetPlanWithMembershipsAsync(int id, CancellationToken ct = default)
         {
-            await _context.Plans.AddAsync(plan, ct);
-            return await _context.SaveChangesAsync(ct);
+            return await _context.Plans.Include(p => p.Members).FirstOrDefaultAsync(p => p.Id == id, ct);
         }
-        public async Task<int> UpdateAsync(Plan plan, CancellationToken ct = default)
-        {
-             _context.Plans.Update(plan);
-
-            return await _context.SaveChangesAsync(ct);
-        }
-
-        public async Task<int> DeleteAsync(Plan plan, CancellationToken ct = default)
-        {
-            _context.Plans.Remove(plan);
-
-            return await _context.SaveChangesAsync(ct);
-        }
-
-      
-
-       
-    }
+    
+}
 }

@@ -1,4 +1,9 @@
-﻿
+﻿@model AnalyticViewModel
+
+@{
+
+    ViewData["Title"] = "Home";
+}
 
         <div class="container">
             <main role="main" class="pb-3">
@@ -22,57 +27,60 @@
                                 </p>
                             </header>
 
-                            <div class="stats-bar">
-                                <div class="row g-0">
-                                    <div class="col-4">
-                                        <div class="stat">
-                                            <span class="fw-bolder fs-5 d-block mb-1">100</span>
-                                            <h3 class="fs-5 fw-normal">Total Members</h3>
-                                        </div>
-                                    </div>
-                                    <div class="col-4">
-                                        <div class="stat">
-                                            <span class="fw-bolder fs-5 d-block mb-1">85</span>
-                                            <h3 class="fs-5 fw-normal">Active Members</h3>
-                                        </div>
-                                    </div>
-                                    <div class="col-4">
-                                        <div class="stat">
-                                            <span class="fw-bolder fs-5 d-block mb-1">20</span>
-                                            <h3 class="fs-5 fw-normal">Trainers</h3>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row g-0">
-                                    <div class="col-4">
-                                        <div class="stat">
-                                            <span class="fw-bolder fs-5 d-block mb-1">3</span>
-                                            <h3 class="fs-5 fw-normal">Upcoming Sessions</h3>
-                                        </div>
-                                    </div>
-                                    <div class="col-4">
-                                        <div class="stat">
-                                            <span class="fw-bolder fs-5 d-block mb-1">5</span>
-                                            <h3 class="fs-5 fw-normal">Ongoing Sessions</h3>
-                                        </div>
-                                    </div>
-                                    <div class="col-4">
-                                        <div class="stat">
-                                            <span class="fw-bolder fs-5 d-block mb-1">20</span>
-                                            <h3 class="fs-5 fw-normal">Completed Sessions</h3>
-                                        </div>
-                                    </div>
+                    <div class="stats-bar">
+                        <div class="row g-0">
+                            <div class="col-4">
+                                <div class="stat">
+                                    <span class="fw-bolder fs-5 d-block mb-1">@Model.TotalMembers</span>
+                                    <h3 class="fs-5 fw-normal">Total Members</h3>
                                 </div>
                             </div>
+                            <div class="col-4">
+                                <div class="stat">
+                                    <span class="fw-bolder fs-5 d-block mb-1">@Model.ActiveMembers</span>
+                                    <h3 class="fs-5 fw-normal">Active Members</h3>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="stat">
+                                    <span class="fw-bolder fs-5 d-block mb-1">@Model.TotalTrainers</span>
+                                    <h3 class="fs-5 fw-normal">Trainers</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row g-0">
+                            <div class="col-4">
+                                <div class="stat">
+                                    <span class="fw-bolder fs-5 d-block mb-1">@Model.UpcomingSessions</span>
+                                    <h3 class="fs-5 fw-normal">Upcoming Sessions</h3>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="stat">
+                                    <span class="fw-bolder fs-5 d-block mb-1">@Model.OngoingSessions</span>
+                                    <h3 class="fs-5 fw-normal">Ongoing Sessions</h3>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="stat">
+                                    <span class="fw-bolder fs-5 d-block mb-1">@Model.CompletedSessions</span>
+                                    <h3 class="fs-5 fw-normal">Completed Sessions</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-                            <div class="buttons my-4">
-                                <button class="get-started bg-primary-color text-white btn rounded-5 fw-medium px-3 py-2 me-5 border-2 border-primary-color">
-                                    Get Started
-                                </button>
+                           <div class="buttons my-4">
+                                 <a asp-controller="Members" asp-action="Index"
+                                    class="get-started bg-primary-color text-white btn rounded-5 fw-medium px-3 py-2 me-5 border-2 border-primary-color">
+                                     Get Started
+                                 </a>
 
-                                <button class="explore-more border-primary-color btn rounded-5 fw-medium px-3 py-2 border-2 text-primary-color fw-medium">
-                                    Explore More
-                                </button>
+                                                              <a asp-controller="Plans" asp-action="Index"
+                                    class="explore-more border-primary-color btn rounded-5 fw-medium px-3 py-2 border-2 text-primary-color fw-medium">
+                                     Explore More
+                                 </a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -84,15 +92,15 @@
                     </div>
                 </div>
 
-                <div class="bar bg-primary-color d-flex py-4 text-white fw-bolder align-items-center">
-                    <p class="py-0 my-0 overflow-hidden text-nowrap">
-                        outdoor & online trainers
-                        <img src="~/images/star.svg" alt="star icon" /> personal training
-                        <img src="~/images/star.svg" alt="star icon" /> live classes
-                        <img src="~/images/star.svg" alt="star icon" /> personal trainers
-                        <img src="~/images/star.svg" alt="star icon" /> personal training
-                    </p>
-                </div>
+    <div class="bar bg-primary-color d-flex py-3 px-3 text-white fw-bolder align-items-center  shadow-sm">
+        <p class="py-0 my-0 overflow-hidden text-nowrap w-100 text-center fs-5">
+            outdoor & online trainers
+            <img src="~/images/star.svg" alt="star icon" class="mx-2" /> personal training
+            <img src="~/images/star.svg" alt="star icon" class="mx-2" /> live classes
+            <img src="~/images/star.svg" alt="star icon" class="mx-2" /> personal trainers
+            <img src="~/images/star.svg" alt="star icon" class="mx-2" /> personal training
+        </p>
+    </div>
 
                 <!-- ^ all other section -->
                 <main>
@@ -189,9 +197,11 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <button class="btn bg-primary-color rounded-pill text-white fw-medium px-4 py-2 mt-3">
-                                            Get Started
-                                        </button>
+                                        <a asp-controller="Members" asp-action="Index">
+                                                 <button class="btn bg-primary-color rounded-pill text-white fw-medium px-4 py-2 mt-3">
+                                                           Get Started
+                                                                 </button>
+                                                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -338,73 +348,7 @@
                         </div>
                     </section>
                 </main>
-                <footer class="mt-5">
-                    <div class="bar bg-primary-color d-flex py-4 text-white fw-bolder align-items-center">
-                        <p class="py-0 my-0 overflow-hidden text-nowrap">
-                            outdoor & online trainers
-                            <img src="~/images/star.svg" alt="star icon" /> personal training
-                            <img src="~/images/star.svg" alt="star icon" /> live classes
-                            <img src="~/images/star.svg" alt="star icon" /> personal trainers
-                            <img src="~/images/star.svg" alt="star icon" /> personal training
-                        </p>
-                    </div>
-
-                    <div class="footer-content my-5">
-                        <div class="container">
-                            <div class="row row-cols-2 row-cols-md-4 g-5">
-                                <div class="logo">
-                                    <div class="inner">
-                                        <div class="image">
-                                            <img src="~/images/logo.jpg" alt="our logo" />
-                                        </div>
-                                        <p class="fs-18 mt-2">
-                                            Push harder, go further. Your <br />
-                                            fitness journey starts today!
-                                        </p>
-                                    </div>
-                                </div>
-
-                                <div class="contact">
-                                    <h4 class="fw-bolder text-uppercase mb-4">contact us</h4>
-
-                                    <ul>
-                                        <li class="d-flex align-items-center gap-2">
-                                            <div class="icon">
-                                                <img src="~/images/phone icon.jpg" alt="phone icon" />
-                                            </div>
-                                            <p>+91 123 456 789</p>
-                                        </li>
-
-                                        <li class="d-flex align-items-center gap-2">
-                                            <div class="icon">
-                                                <img src="~/images/message icon.jpg" alt="message icon" />
-                                            </div>
-                                            <p>info@gmail.com</p>
-                                        </li>
-                                    </ul>
-                                </div>
-
-                                <div class="time">
-                                    <h4 class="fw-bolder text-uppercase mb-4">our gym timing</h4>
-
-                                    <p>
-                                        Mon - Fri : 08:00 AM - 10:00 PM <br />Sat - Sun : 08:00 AM -
-                                        09:00 PM
-                                    </p>
-                                </div>
-
-                                <div class="location">
-                                    <h4 class="fw-bolder text-uppercase mb-4">our location</h4>
-
-                                    <p>
-                                        2715 Ash Dr. San Jose, South <br />
-                                        Dakota 83475
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </footer>
+             
 
             </main>
         </div>

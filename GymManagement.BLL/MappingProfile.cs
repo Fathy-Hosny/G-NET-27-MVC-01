@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using GymManagement.BLL.ViewModels.Plans;
 using GymManagement.BLL.ViewModels.Sessions;
+using GymManagement.BLL.ViewModels.Trainer;
 using GymManagement.DAL.Models;
 using GymManagement.Models;
 using GymManagementSystem.BLL.ViewModels.MemberViewModels;
@@ -13,10 +14,11 @@ namespace GymManagement.BLL
         {
             MapMember();
             MapPlan();
-
             MapSession();
+            MapTrainer(); // 1. أضفنا استدعاء الـ MapTrainer هنا
         }
-        private void MapMember() 
+
+        private void MapMember()
         {
             CreateMap<CreateMemberViewModel, Member>()
             .ForMember(dest => dest.Address, opt => opt.MapFrom(src => new Address()
@@ -55,7 +57,6 @@ namespace GymManagement.BLL
                 .ForMember(dest => dest.City, opt => opt.MapFrom(src => src.Address.City))
                 .ForMember(dest => dest.Street, opt => opt.MapFrom(src => src.Address.Street))
                 .ForMember(dest => dest.BuildingNumber, opt => opt.MapFrom(src => src.Address.BuildingNumber));
-
         }
 
         private void MapPlan()
@@ -75,6 +76,32 @@ namespace GymManagement.BLL
             CreateMap<Session, UpdateSessionViewModel>();
         }
 
+        // 2. أضفنا الدالة الخاصة برسم الخرائط للـ Trainer
+        private void MapTrainer()
+        {
+            // من Trainer إلى TrainerViewModel (تستخدم في عرض القائمة)
+            CreateMap<Trainer, TrainerViewModel>();
+
+            // من Trainer إلى TrainerDetailsViewModel (تستخدم في تفاصيل المدرب)
+            CreateMap<Trainer, TrainerDetailsViewModel>()
+                .ForMember(dest => dest.Address, opt => opt.MapFrom(src => src.Address != null
+                    ? $"{src.Address.BuildingNumber} - {src.Address.Street} - {src.Address.City}"
+                    : "No Address"));
+
+            // من Trainer إلى TrainerEditViewModel (تستخدم لصفحة التعديل)
+            CreateMap<Trainer, TrainerEditViewModel>()
+                .ForMember(dest => dest.BuildingNumber, opt => opt.MapFrom(src => src.Address != null ? src.Address.BuildingNumber : 0))
+                .ForMember(dest => dest.Street, opt => opt.MapFrom(src => src.Address != null ? src.Address.Street : string.Empty))
+                .ForMember(dest => dest.City, opt => opt.MapFrom(src => src.Address != null ? src.Address.City : string.Empty));
+
+            // من TrainerCreateViewModel إلى Trainer (تستخدم عند إنشاء مدرب جديد)
+            CreateMap<TrainerCreateViewModel, Trainer>()
+                .ForMember(dest => dest.Address, opt => opt.MapFrom(src => new Address
+                {
+                    BuildingNumber = src.BuildingNumber,
+                    Street = src.Street,
+                    City = src.City
+                }));
+        }
     }
 }
-   

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using AutoMapper;
+using GymManagement.BLL.Services.Attachment;
 using GymManagement.BLL.Services.Interfaces;
 using GymManagement.DAL;
 using GymManagement.DAL.Models;
@@ -14,13 +15,16 @@ namespace GymManagement.BLL.Services.Classes
     {
      private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+        private readonly IAttachmentService _attachmentService;
         public MemberService(
          IUnitOfWork UnitOfWork,
          IMapper mapper
+            , IAttachmentService attachmentService
             )
         {
             _unitOfWork = UnitOfWork;
             _mapper = mapper;
+            _attachmentService = attachmentService;
         }
         public async Task<IEnumerable<MemberViewModel>> GetAllMembersAsync(CancellationToken ct = default)
         {
@@ -95,10 +99,14 @@ namespace GymManagement.BLL.Services.Classes
             //Add to Database
 
             #endregion
+            var fileName = await _attachmentService.UploadFileAsync(model.PhotoFile.OpenReadStream(), "MemberPicture", model.PhotoFile.FileName, ct);
+            if(string.IsNullOrWhiteSpace(fileName)) return false;
             var member =  _mapper.Map<Member>(model);
+            member.Photo = fileName; // Set the uploaded file name
             _unitOfWork.GetRepository<Member>().Add(member);
             var count = await _unitOfWork.SaveChangesAsync(ct);
-            return count > 0;
+            if(count > 0) return true;
+            else {  return false; }
         }
 
 

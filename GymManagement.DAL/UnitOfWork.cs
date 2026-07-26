@@ -11,15 +11,18 @@ namespace GymManagement.DAL
         private readonly Dictionary<string, object> _repositories = [];
         private readonly ISessionRepository _sessionRepository;
         private readonly IPlanRepository _planRepository;
-        public UnitOfWork(GymDbcontext context, ISessionRepository sessionRepository , IPlanRepository planRepository)
+        private readonly ITrainerRepository _trainerRepository;
+        public UnitOfWork(GymDbcontext context, ISessionRepository sessionRepository , IPlanRepository planRepository, ITrainerRepository trainerRepository)
         {
             _context = context;
             _sessionRepository = sessionRepository;
             _planRepository = planRepository;
+            _trainerRepository = trainerRepository;
         }
 
         public ISessionRepository SessionRepository => _sessionRepository;
         public IPlanRepository PlanRepository => _planRepository;
+        public ITrainerRepository TrainerRepository => _trainerRepository;
         public IGenericRepository<TEntity> GetRepository<TEntity>() where TEntity : BaseEntity
         {
             var typeName = typeof(TEntity).Name;
